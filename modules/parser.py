@@ -69,20 +69,24 @@ def parse_data(config):
         max_reports = config['data']['max_reports']
 
     if 'reports' in config['data']:
-        file = open(config['data']['reports'])
-        reportlist = json.load(file)
+        entries = os.listdir(config['data']['reports'])
+        for entry in entries:
+            filename = os.path.join(config['data']['reports'], entry)
+            print("Processing reports file --------------------:", filename)
+            file = open(filename)
+            reportlist = json.load(file)
 
-        added = count = 0
-        for report in reportlist:
-            count += 1
-            if _parse_report(report, data):
-                added += 1
+            added = count = 0
+            for report in reportlist:
+                count += 1
+                if _parse_report(report, data):
+                    added += 1
 
-            if max_reports > 0 and added > max_reports:
-                break
+                if max_reports > 0 and added > max_reports:
+                    break
 
-        print("Reports processed --------------------------:", count-1)
-        print("Reports added with damages -----------------:", added-1)
+            print("    Reports processed ----------------------:", count-1)
+            print("    Reports added with damages -------------:", added-1)
 
     _debug_print(data)
 

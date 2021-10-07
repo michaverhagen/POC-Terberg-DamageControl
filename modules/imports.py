@@ -75,6 +75,9 @@ def _import_images(instance: dict, client: weaviate.client, images: list):
     for image in images:
         thing = {}
         thing['filename'] = image['filename']
+        thing['image'] = weaviate.util.image_encoder_b64("./data/images/dent.jpg")
+        #thing['image'] = weaviate.util.image_encoder_b64(image['filename'])
+
         newuuid = generate_uuid('Image', image['filename'])
         client.batch.add_data_object(thing, 'Image', newuuid)
         batchcount += 1
