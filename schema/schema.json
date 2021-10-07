@@ -1,0 +1,152 @@
+{
+    "classes": [
+        {
+            "class": "Report",
+            "vectorizer": "text2vec-contextionary",
+            "moduleConfig": {
+                "text2vec-contextionary": {
+                    "vectorizeClassName": true
+                }
+            },
+            "properties": [
+                {
+                    "description": "NA",
+                    "name": "vId",
+                    "dataType": [
+                        "string"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": true,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "licensePlate",
+                    "dataType": [
+                        "string"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": true,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "hasDamages",
+                    "dataType": [
+                        "Damage"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": true,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "class": "Damage",
+            "vectorizer": "text2vec-contextionary",
+            "moduleConfig": {
+                "text2vec-contextionary": {
+                    "vectorizeClassName": false
+                }
+            },
+            "properties": [
+                {
+                    "description": "NA",
+                    "name": "damageId",
+                    "dataType": [
+                        "int"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "damagePart",
+                    "dataType": [
+                        "string"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "damageDescription",
+                    "dataType": [
+                        "string"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "proposedSolution",
+                    "dataType": [
+                        "string"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "estimatedCost",
+                    "dataType": [
+                        "int"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "ofReport",
+                    "dataType": [
+                        "Report"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

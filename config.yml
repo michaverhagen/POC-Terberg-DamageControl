@@ -1,0 +1,16 @@
+weaviate:
+    url: 'http://localhost:8080'
+    schema: './schema/schema.json'
+    #module_name: 'text2vec-transformers'
+    module_name: 'text2vec-contextionary'
+    username: "WEAVIATE_USERNAME"
+    password: "WEAVIATE_PASSWORD"
+    debug: False
+    verbose: True
+    delay: 2.0
+    max_batch_size: 100
+
+data:
+    config: './data/data_configuration.xlsx'
+    reports: './data/reports/reports.json'
+    max_reports: -1
