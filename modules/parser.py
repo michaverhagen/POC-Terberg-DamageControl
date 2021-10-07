@@ -27,7 +27,6 @@ def _parse_report(report, data):
             newreport = {}
             newreport['vId'] = report['vId']
             newreport['licensePlate'] = report['licensePlate']
-            data['reports'].append(newreport)
 
             for damage in report['damages']:
                 newdamage = {}
@@ -47,10 +46,14 @@ def _parse_report(report, data):
                 if 'estimatedCost' in damage:
                     newdamage['estimatedCost'] = damage['estimatedCost']
 
-                #if 'imagesOfDamage' in damage:
-                    #newdamage['damagePart'] = damage['damagePart']
-
+                if 'imagesOfDamage' in damage and len(damage['imagesOfDamage']) > 0:
+                    for location in damage['imagesOfDamage']:
+                        newimage = {}
+                        newimage['ofDamage'] = report['vId']+str(damage['damageId'])
+                        newimage['filename'] = location
+                        data['images'].append(newimage)
                 data['damages'].append(newdamage)
+            data['reports'].append(newreport)
 
     return added
 
@@ -59,6 +62,7 @@ def parse_data(config):
     data = {}
     data['reports'] = []
     data['damages'] = []
+    data['images'] = []
 
     max_reports = -1
     if 'max_reports' in config['data']:

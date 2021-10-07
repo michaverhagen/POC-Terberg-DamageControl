@@ -13,4 +13,5 @@ weaviate:
 data:
     config: './data/data_configuration.xlsx'
     reports: './data/reports/reports.json'
-    max_reports: -1
+    max_reports: 5
+    #max_reports: -1

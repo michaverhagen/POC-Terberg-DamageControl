@@ -145,6 +145,59 @@
                             "vectorizePropertyName": false
                         }
                     }
+                },
+                {
+                    "description": "NA",
+                    "name": "hasImages",
+                    "dataType": [
+                        "Image"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": false
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "class": "Image",
+            "vectorizer": "text2vec-contextionary",
+            "moduleConfig": {
+                "text2vec-contextionary": {
+                    "vectorizeClassName": true
+                }
+            },
+            "properties": [
+                {
+                    "description": "NA",
+                    "name": "image",
+                    "dataType": [
+                        "blob"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": true
+                        }
+                    }
+                },
+                {
+                    "description": "NA",
+                    "name": "ofDamage",
+                    "dataType": [
+                        "Damage"
+                    ],
+                    "indexInverted": true,
+                    "moduleConfig": {
+                        "text2vec-contextionary": {
+                            "skip": false,
+                            "vectorizePropertyName": true
+                        }
+                    }
                 }
             ]
         }

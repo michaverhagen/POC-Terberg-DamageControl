@@ -47,22 +47,50 @@ def _import_damages(instance: dict, client: weaviate.client, damages: list):
 
     errorcount = totalcount = batchcount = 0
     for damage in damages:
-            newuuid = generate_uuid('Damage', damage['reportId']+str(damage['damageId']))
-            client.batch.add_data_object(damage, 'Damage', newuuid)
-            batchcount += 1
-            totalcount += 1
-            if batchcount >= maxbatch:
-                print("Damages imported in Weaviate ---------------:", totalcount, 'errors:', errorcount, end='\r')
-                result = client.batch.create_objects()
-                errorcount += check_batch_result(result)
-                client.batch.shape
-                batchcount = 0
+        newuuid = generate_uuid('Damage', damage['reportId']+str(damage['damageId']))
+        client.batch.add_data_object(damage, 'Damage', newuuid)
+        batchcount += 1
+        totalcount += 1
+        if batchcount >= maxbatch:
+            print("Damages imported in Weaviate ---------------:", totalcount, 'errors:', errorcount, end='\r')
+            result = client.batch.create_objects()
+            errorcount += check_batch_result(result)
+            client.batch.shape
+            batchcount = 0
 
     if batchcount > 0:
         result = client.batch.create_objects()
         errorcount += check_batch_result(result)
 
     print("Damages imported in Weaviate ---------------:", totalcount, 'errors:', errorcount)
+
+
+def _import_images(instance: dict, client: weaviate.client, images: list):
+
+    maxbatch = DEFAULT_MAX_BATCH
+    if instance is not None and 'max_batch_size' in instance:
+        maxbatch = instance['max_batch_size']
+
+    errorcount = totalcount = batchcount = 0
+    for image in images:
+        thing = {}
+        thing['filename'] = image['filename']
+        newuuid = generate_uuid('Image', image['filename'])
+        client.batch.add_data_object(thing, 'Image', newuuid)
+        batchcount += 1
+        totalcount += 1
+        if batchcount >= maxbatch:
+            print("Images imported in Weaviate ----------------:", totalcount, 'errors:', errorcount, end='\r')
+            result = client.batch.create_objects()
+            errorcount += check_batch_result(result)
+            client.batch.shape
+            batchcount = 0
+
+    if batchcount > 0:
+        result = client.batch.create_objects()
+        errorcount += check_batch_result(result)
+
+    print("Images imported in Weaviate ----------------:", totalcount, 'errors:', errorcount)
 
 
 def _crossref_damages(instance: dict, client: weaviate.client, damages: list):
@@ -90,10 +118,37 @@ def _crossref_damages(instance: dict, client: weaviate.client, damages: list):
     print("Damages cross reference --------------------:", totalcount)
 
 
+def _crossref_images(instance: dict, client: weaviate.client, images: list):
+
+    maxbatch = DEFAULT_MAX_BATCH
+    if instance is not None and 'max_batch_size' in instance:
+        maxbatch = instance['max_batch_size']
+
+    client.batch.shape
+    errorcount = totalcount = batchcount = 0
+    for image in images:
+        iuuid = generate_uuid('Image', image['filename'])
+        duuid = generate_uuid('Damage', image['ofDamage'])
+        client.batch.add_reference(iuuid, 'Image', "ofDamage", duuid)
+        client.batch.add_reference(duuid, 'Damage', "hasImages", iuuid)
+        totalcount += 2
+        batchcount += 2
+        if batchcount >= maxbatch:
+            print("Damages cross reference --------------------:", totalcount, end='\r')
+            result = client.batch.create_references()
+            client.batch.shape
+            batchcount = 0
+    if batchcount > 0:
+        result = client.batch.create_references()
+    print("Damages cross reference --------------------:", totalcount)
+
+
 def import_data(config: dict, client: weaviate.client, data: dict):
 
     instance = config['weaviate']
 
     _import_reports(instance, client, data['reports'])
     _import_damages(instance, client, data['damages'])
+    _import_images(instance, client, data['images'])
     _crossref_damages(instance, client, data['damages'])
+    _crossref_images(instance, client, data['images'])
