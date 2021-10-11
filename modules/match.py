@@ -67,7 +67,7 @@ def match_image(config, path):
 
     if search == 'nearImage':
         print("Matching images using nearImage ------------:", path)
-        _match_image_nearObject(client, path)
+        _match_image_nearImage(client, path)
     elif search == 'nearObject':
         print("Matching images using nearObject -----------:", path)
-        _match_image_nearImage(client, path)
+        _match_image_nearObject(client, path)
