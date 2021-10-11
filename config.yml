@@ -13,5 +13,7 @@ weaviate:
 data:
     config: './data/data_configuration.xlsx'
     reports: './data/reports/'   # must be a directory
-    max_reports: 2
+    search: "nearImage"
+    #search: "nearObject"
     #max_reports: -1
+    max_reports: 2
