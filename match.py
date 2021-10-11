@@ -15,8 +15,7 @@ def _match_image():
 
     with open('./config.yml') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
-        client = get_weaviate_client(config['weaviate'])
-        match_image(client, NEW_IMAGE)
+        match_image(config, NEW_IMAGE)
 
 
 
